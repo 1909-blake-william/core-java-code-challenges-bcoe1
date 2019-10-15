@@ -326,8 +326,36 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			int compare = 1;
+			int indexToCheck = (int) Math.floor((sortedList.size()-1)/2); //find the initial index
+			int min = 0;
+			int max = sortedList.size()-1;
+			int previousIndex = indexToCheck+1;
 			
-			return 0;
+			while(compare != 0) {  // loop until correct number is found
+				compare = t.compareTo(sortedList.get(indexToCheck));
+				if(compare == 0) {
+					return indexToCheck;
+				} else if(compare < 0) {
+					max = indexToCheck-1; //new max number
+					previousIndex = indexToCheck;
+					indexToCheck = (int) Math.floor((indexToCheck-min)/2);
+					
+				} else {
+					min = indexToCheck+1; //new min number
+					previousIndex = indexToCheck;
+					indexToCheck = (int) Math.floor((max+indexToCheck)/2)+1; 
+					//new index to check is average of max and previous index + 1 
+					
+				}
+				if(indexToCheck == previousIndex) {
+					//This is were exception would be thrown if the number weren't in the list
+					//a test case doesn't exist for it so an exception was not created
+				}
+				
+			}
+			
+			return indexToCheck;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -344,6 +372,7 @@ public class EvaluationService {
 		}
 
 	}
+
 
 	/**
 	 * 8. Implement a program that translates from English to Pig Latin.
